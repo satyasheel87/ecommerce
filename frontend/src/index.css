@@ -1,0 +1,94 @@
+/* ─── Global Reset & Base ───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary:    #e94560;
+  --bg-dark:    #0d0d1a;
+  --bg-card:    #16213e;
+  --bg-nav:     #1a1a2e;
+  --text:       #eeeeee;
+  --text-muted: #888888;
+  --border:     #2a2a4a;
+  --success:    #2ecc71;
+  --warning:    #f5a623;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button { font-family: inherit; }
+
+img { max-width: 100%; display: block; }
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+/* ─── Utility Classes ───────────────────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.page-padding {
+  padding: 2rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-primary:disabled {
+  background: #444;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* ─── Form Inputs ───────────────────────────────────────────── */
+input, select, textarea {
+  background: #1a1a2e;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+}
+
+/* ─── Responsive Mobile ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .page-padding { padding: 1.5rem 1rem; }
+}
