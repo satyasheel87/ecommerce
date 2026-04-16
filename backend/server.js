@@ -7,14 +7,17 @@ dotenv.config();
 
 const app = express();
 
-// CORS configuration
-app.use(cors({
-  origin: [
-    "https://satyaecomshop.netlify.app",
-    "http://localhost:3000"
-  ],
-  credentials: true
-}));
+// CORS
+app.use(
+  cors({
+    origin: 'https://satyaecomshop.netlify.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+  })
+);
+
+// Allow preflight requests
+app.options('*', cors());
 
 // Middleware
 app.use(express.json());
@@ -27,22 +30,24 @@ app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 
-// Default Route
+// Test route
 app.get('/', (req, res) => {
-  res.json({ message: 'E-Commerce API is running 🚀' });
+  res.status(200).json({
+    message: 'E-Commerce API is running 🚀',
+  });
 });
 
-// Error Handler
+// Error handler
 app.use((err, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  console.error(err);
 
-  res.status(statusCode).json({
-    message: err.message,
+  res.status(err.status || 500).json({
+    message: err.message || 'Server Error',
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 });
 
-// DB + Server Start
+// Start server after DB connection
 const PORT = process.env.PORT || 5000;
 
 mongoose
@@ -55,6 +60,6 @@ mongoose
     });
   })
   .catch((err) => {
-    console.error('❌ DB Connection Error:', err.message);
+    console.error('❌ MongoDB Connection Error:', err);
     process.exit(1);
   });
