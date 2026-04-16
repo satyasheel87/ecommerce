@@ -1,11 +1,21 @@
-const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
+const express = require('express');
+const cors = require("cors");
+
 const app = express();
+
+app.use(cors({
+  origin: [
+    "https://satyaecomshop.netlify.app",
+    "http://localhost:3000"
+  ],
+  credentials: true
+}));
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(cors());
@@ -14,10 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
-app.use('/api/auth',     require('./routes/authRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/products', require('./routes/productRoutes'));
-app.use('/api/orders',   require('./routes/orderRoutes'));
-app.use('/api/users',    require('./routes/userRoutes'));
+app.use('/api/orders', require('./routes/orderRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 // ─── Default Route ────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
